@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=scratch
 # hadolint ignore=DL3006
 FROM $BUILD_FROM
 
@@ -14,28 +14,19 @@ RUN \
         iputils-ping \
         kmod \
         libcap2-bin \
-        libqt5core5a \
-        libqt5gui5 \
-        libqt5network5 \
-        libqt5serialport5 \
-        libqt5sql5 \
-        libqt5websockets5 \
-        libqt5widgets5 \
-        libqt5qml5 \
         lsof \
-        netcat \
+        luakit \
+        netcat-openbsd \
         nginx \
         novnc \
+        openbox \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
         udev \
         wget \
-        wmii \
         xfonts-base \
         xfonts-scalable \
-        surf \
-        libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy root filesystem

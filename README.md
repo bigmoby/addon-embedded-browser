@@ -65,22 +65,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-[original_project]: https://github.com/hassio-addons/addon-embedded-browser
 [contributors]: https://github.com/bigmoby/addon-embedded-browser/graphs/contributors
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [commits-shield]: https://img.shields.io/github/commit-activity/y/hassio-addons/addon-embedded-browser.svg
 [commits]: https://github.com/bigmoby/addon-embedded-browser/commits/main
-[discord-ha]: https://discord.gg/c5DvZ4e
-[discord-shield]: https://img.shields.io/discord/478094546522079232.svg
-[discord]: https://discord.me/hassioaddons
 [docs]: https://github.com/bigmoby/addon-embedded-browser/blob/master/embedded-browser/DOCS.md
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
 [issue]: https://img.shields.io/github/issues/bigmoby/addon-embedded-browser.svg
 [license-shield]: https://img.shields.io/github/license/bigmoby/addon-embedded-browser.svg
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2026.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-under%20development-brightgreen.svg
 [reddit]: https://reddit.com/r/homeassistant
 [releases-shield]: https://img.shields.io/github/release/bigmoby/addon-embedded-browser.svg

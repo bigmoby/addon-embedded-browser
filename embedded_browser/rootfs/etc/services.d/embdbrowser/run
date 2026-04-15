@@ -1,25 +1,18 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start Surf embedded browser service
+# Start VNC server, Openbox window manager, and Luakit browser
 # ==============================================================================
 TMP_FOLDER=$(mktemp -d)
 
-# VNC is not enabled as a separate service, as it cannot handle multiple
-# session when running in the foreground.
 VNC_PORT="$(bashio::addon.port 5900)"
-ARCH="$(bashio::info.arch)"
+START_URL="$(bashio::config 'start_url')"
 
-# Fix tigervnc for 32 bits ARM
-if [[ "armhf armv7" = *"${ARCH}"* ]]; then
-    export LD_PRELOAD=/lib/arm-linux-gnueabihf/libgcc_s.so.1
-fi
-
-# Fix tigervnc for 64 bits ARM
-if [[ "aarch64" = "${ARCH}" ]]; then
+# Fix tigervnc for 64-bit ARM (aarch64)
+if [[ "$(bashio::info.arch)" == "aarch64" ]]; then
     export LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1
 fi
 
-# Run it only on localhost if not expose
+# Expose VNC port only if explicitly configured
 if bashio::var.has_value "${VNC_PORT}"; then
     bashio::log.warning "Your direct VNC access is not protected!"
     LOCAL_ONLY=no
@@ -30,22 +23,22 @@ fi
 export XDG_RUNTIME_DIR="${TMP_FOLDER}"
 export DISPLAY=":0"
 
-bashio::log.info "Starting VNC server (local/${LOCAL_ONLY})..."
-
+bashio::log.info "Starting VNC server (local=${LOCAL_ONLY})..."
 tigervncserver \
-    -name "Home Assistant - Surf" \
+    -name "Home Assistant - Luakit" \
     -geometry 1920x1080 \
-    -depth 16 \
-    -localhost ${LOCAL_ONLY} \
+    -depth 24 \
+    -localhost "${LOCAL_ONLY}" \
     -SecurityTypes None \
     --I-KNOW-THIS-IS-INSECURE \
     "${DISPLAY}" \
-    &> /dev/null
+    &>/dev/null
 
-# Wait for VNC server to start before continuing
-bashio::log.info "Surf embedded browser waiting for VNC to start"
 bashio::net.wait_for 5900
 
-# Start Embedded browser
-bashio::log.info "Starting Surf embedded browser in private mode..."
-surf http://192.168.1.1
+bashio::log.info "Starting Openbox window manager..."
+DISPLAY=:0 openbox &
+sleep 1
+
+bashio::log.info "Starting Luakit browser at ${START_URL}..."
+exec luakit "${START_URL}"

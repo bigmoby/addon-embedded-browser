@@ -1,0 +1,74 @@
+#!/bin/bash
+# Bootstrap script for Home Assistant devcontainer
+# Fixes Docker mount propagation issues
+
+set -e
+
+echo "🔧 Setting up Docker mount propagation..."
+
+# Create supervisor directories
+mkdir -p /mnt/supervisor/{share,addon_configs}
+echo "✓ Supervisor directories created"
+
+# Check if /mnt/supervisor/share is already a mount point
+if mountpoint -q /mnt/supervisor/share 2>/dev/null; then
+    echo "✓ /mnt/supervisor/share is already mounted"
+    # Try to make it shared if it's not already
+    mount --make-shared /mnt/supervisor/share 2>/dev/null || \
+    mount --make-rshared /mnt/supervisor/share 2>/dev/null || \
+    echo "⚠ Could not make /mnt/supervisor/share shared"
+else
+    # Try to mount tmpfs if not already mounted
+    if mount -t tmpfs -o size=100M tmpfs /mnt/supervisor/share 2>/dev/null; then
+        echo "✓ tmpfs montato su /mnt/supervisor/share"
+    else
+        echo "ℹ /mnt/supervisor/share non montato (verrà creato automaticamente)"
+    fi
+fi
+
+# Try to make root mount shared (required for Docker-in-Docker)
+# This might fail if we don't have sufficient privileges
+if mount --make-shared / 2>/dev/null || mount --make-rshared / 2>/dev/null; then
+    echo "✓ Root mount configured as shared"
+else
+    # Check if it's already shared
+    if grep -q "shared:" /proc/self/mountinfo | grep " / "; then
+        echo "✓ Root mount is already shared"
+    else
+        echo "⚠ Could not configure root mount as shared"
+        echo "  This may cause issues with Docker-in-Docker"
+    fi
+fi
+
+echo ""
+echo "🔧 Mount local addons directory..."
+
+# Mount addon-wireguard if workspace exists
+if [ -d /workspaces/addon-wireguard-client ]; then
+    sudo mkdir -p /mnt/supervisor/addons/local/addon-wireguard
+    if ! mountpoint -q /mnt/supervisor/addons/local/addon-wireguard 2>/dev/null; then
+        if sudo mount --bind /workspaces/addon-wireguard-client /mnt/supervisor/addons/local/addon-wireguard 2>/dev/null; then
+            echo "✓ Workspace directory bind mounted a /mnt/supervisor/addons/local/addon-wireguard"
+        else
+            echo "⚠ Errore nel montaggio bind del workspace, procedo con la sincronizzazione files"
+            sudo cp -rT /workspaces/addon-wireguard-client /mnt/supervisor/addons/local/addon-wireguard
+        fi
+    else
+        echo "✓ Workspace directory already mounted"
+    fi
+fi
+
+# Mount addon-embedded-browser
+sudo mkdir -p /mnt/supervisor/addons/local/addon-embedded-browser
+if ! mountpoint -q /mnt/supervisor/addons/local/addon-embedded-browser 2>/dev/null; then
+    if sudo mount --bind /workspaces/addon-embedded-browser /mnt/supervisor/addons/local/addon-embedded-browser 2>/dev/null; then
+        echo "✓ addon-embedded-browser bind mounted a /mnt/supervisor/addons/local/addon-embedded-browser"
+    else
+        echo "⚠ Errore nel montaggio bind di addon-embedded-browser"
+    fi
+else
+    echo "✓ addon-embedded-browser already mounted"
+fi
+
+echo ""
+echo "✅ Bootstrap complete"

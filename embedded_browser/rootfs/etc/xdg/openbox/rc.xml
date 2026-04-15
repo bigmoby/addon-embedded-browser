@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_config xmlns="http://openbox.org/3.4/rc"
+                xmlns:xi="http://www.w3.org/2001/XInclude">
+  <resistance>
+    <strength>10</strength>
+    <screen_edge_strength>20</screen_edge_strength>
+  </resistance>
+  <focus>
+    <focusNew>yes</focusNew>
+    <followMouse>no</followMouse>
+    <focusLast>yes</focusLast>
+    <underMouse>no</underMouse>
+    <focusDelay>200</focusDelay>
+    <raiseOnFocus>no</raiseOnFocus>
+  </focus>
+  <theme>
+    <name>Clearlooks</name>
+    <titleLayout>NLIMC</titleLayout>
+    <keepBorder>yes</keepBorder>
+    <animateIconify>yes</animateIconify>
+    <font place="ActiveWindow">
+      <name>sans</name>
+      <size>8</size>
+      <weight>bold</weight>
+      <slant>normal</slant>
+    </font>
+    <font place="InactiveWindow">
+      <name>sans</name>
+      <size>8</size>
+      <weight>bold</weight>
+      <slant>normal</slant>
+    </font>
+  </theme>
+  <desktops>
+    <number>1</number>
+    <firstdesk>1</firstdesk>
+    <names></names>
+    <popupTime>875</popupTime>
+  </desktops>
+  <resize>
+    <drawContents>yes</drawContents>
+    <popupShow>Nonpixel</popupShow>
+    <popupPosition>Center</popupPosition>
+    <popupFixedPosition>
+      <x>10</x>
+      <y>10</y>
+    </popupFixedPosition>
+  </resize>
+  <keyboard>
+    <chainQuitKey>C-g</chainQuitKey>
+  </keyboard>
+  <mouse>
+    <dragThreshold>8</dragThreshold>
+    <doubleClickTime>500</doubleClickTime>
+    <screenEdgeWarpTime>400</screenEdgeWarpTime>
+    <screenEdgeWarpMouse>false</screenEdgeWarpMouse>
+  </mouse>
+  <margins>
+    <top>0</top>
+    <bottom>0</bottom>
+    <left>0</left>
+    <right>0</right>
+  </margins>
+  <applications>
+    <!-- Auto-maximize and remove decorations for all windows (surf browser) -->
+    <application class="*">
+      <decor>no</decor>
+      <maximized>yes</maximized>
+    </application>
+  </applications>
+</openbox_config>
