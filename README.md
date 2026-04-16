@@ -18,13 +18,13 @@ Epiphany embedded browser.
 
 ### Add-on installation blocked — `docker_gateway_unprotected`
 
-Il Supervisor blocca l'esecuzione dei job perché il Docker gateway non è protetto. Questo è il comportamento atteso in ambiente devcontainer (Docker-in-Docker). Esegui questo comando una volta dopo l'avvio del container per sbloccare l'installazione dell'add-on:
+The Supervisor blocks job execution because the Docker gateway is not secured. This is the expected behavior in a devcontainer environment (Docker-in-Docker). Run this command once after the container starts to unblock the add-on installation:
 
 ```bash
 ha jobs options --ignore-conditions healthy
 ```
 
-> **Nota:** questa impostazione non è persistente e va riapplicata ad ogni riavvio del devcontainer.
+> **Note:** this setting is not persistent and must be re-applied every time the devcontainer is restarted.
 
 ## Contributing
 
