@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start VNC server, Openbox window manager, and Luakit browser
+# Start VNC server, Openbox window manager, and Epiphany browser
 # ==============================================================================
 TMP_FOLDER=$(mktemp -d)
 
@@ -23,9 +23,26 @@ fi
 export XDG_RUNTIME_DIR="${TMP_FOLDER}"
 export DISPLAY=":0"
 
+# Register Epiphany as the default browser to suppress the 'Set as default' banner
+# Detect the correct .desktop filename (Debian Bookworm uses RDNS naming)
+EPIPHANY_DESKTOP="epiphany.desktop"
+if [ -f "/usr/share/applications/org.gnome.Epiphany.desktop" ]; then
+    EPIPHANY_DESKTOP="org.gnome.Epiphany.desktop"
+fi
+bashio::log.info "Using Epiphany desktop file: ${EPIPHANY_DESKTOP}"
+mkdir -p /root/.config /root/.local/share/applications
+cat > /root/.config/mimeapps.list << EOF
+[Default Applications]
+x-scheme-handler/http=${EPIPHANY_DESKTOP}
+x-scheme-handler/https=${EPIPHANY_DESKTOP}
+text/html=${EPIPHANY_DESKTOP}
+application/xhtml+xml=${EPIPHANY_DESKTOP}
+EOF
+cp /root/.config/mimeapps.list /root/.local/share/applications/mimeapps.list
+
 bashio::log.info "Starting VNC server (local=${LOCAL_ONLY})..."
 tigervncserver \
-    -name "Home Assistant - Luakit" \
+    -name "Home Assistant - Epiphany" \
     -geometry 1920x1080 \
     -depth 24 \
     -localhost "${LOCAL_ONLY}" \
@@ -37,8 +54,13 @@ tigervncserver \
 bashio::net.wait_for 5900
 
 bashio::log.info "Starting Openbox window manager..."
-DISPLAY=:0 openbox &
-sleep 1
+openbox &
+sleep 2
 
-bashio::log.info "Starting Luakit browser at ${START_URL}..."
-exec luakit "${START_URL}"
+export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
+
+mkdir -p /var/run/dbus
+dbus-daemon --system --fork --nopidfile || true
+
+bashio::log.info "Starting Epiphany browser at ${START_URL}..."
+exec dbus-run-session epiphany-browser "${START_URL}"

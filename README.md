@@ -1,4 +1,4 @@
-# Home Assistant Bigmoby Add-on: Surf embedded browser
+# Home Assistant Bigmoby Add-on: Epiphany embedded browser
 
 [![GitHub Release][releases-shield]][releases]
 ![Project Stage][project-stage-shield]
@@ -7,11 +7,24 @@
 ![Maintenance][maintenance-shield]
 [![GitHub Activity][commits-shield]][commits]
 
-Surf embedded browser.
+Epiphany embedded browser.
 
 ## About
 
 [WARNING] Please DO NOT use this add-on unless you really KNOW what you are doing! It is in a very early stage of development. [WARNING]
+
+
+## Local development — known issues
+
+### Add-on installation blocked — `docker_gateway_unprotected`
+
+Il Supervisor blocca l'esecuzione dei job perché il Docker gateway non è protetto. Questo è il comportamento atteso in ambiente devcontainer (Docker-in-Docker). Esegui questo comando una volta dopo l'avvio del container per sbloccare l'installazione dell'add-on:
+
+```bash
+ha jobs options --ignore-conditions healthy
+```
+
+> **Nota:** questa impostazione non è persistente e va riapplicata ad ogni riavvio del devcontainer.
 
 ## Contributing
 

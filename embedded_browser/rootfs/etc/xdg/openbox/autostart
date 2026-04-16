@@ -1,0 +1,10 @@
+#!/bin/bash
+# Wait for Epiphany to open, then force-maximize its window
+(
+    sleep 5
+    xdotool search --sync --class "epiphany" \
+        windowmove %@ 0 0 \
+        windowsize %@ 100% 100% \
+        key --window %@ super+Up 2>/dev/null || true
+    wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz 2>/dev/null || true
+) &

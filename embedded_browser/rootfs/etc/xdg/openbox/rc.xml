@@ -62,10 +62,15 @@
     <right>0</right>
   </margins>
   <applications>
-    <!-- Auto-maximize and remove decorations for all windows (surf browser) -->
+    <!-- Auto-maximize and remove decorations for all windows -->
     <application class="*">
       <decor>no</decor>
       <maximized>yes</maximized>
+      <layer>normal</layer>
+      <position force="yes">
+        <x>center</x>
+        <y>center</y>
+      </position>
     </application>
   </applications>
 </openbox_config>

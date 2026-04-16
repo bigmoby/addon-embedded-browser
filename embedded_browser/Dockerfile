@@ -10,12 +10,13 @@ RUN \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl \
+        dbus-x11 \
         iproute2 \
         iputils-ping \
         kmod \
         libcap2-bin \
         lsof \
-        luakit \
+        epiphany-browser \
         netcat-openbsd \
         nginx \
         novnc \
@@ -25,6 +26,8 @@ RUN \
         tigervnc-standalone-server \
         udev \
         wget \
+        wmctrl \
+        xdotool \
         xfonts-base \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists/*

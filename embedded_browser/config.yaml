@@ -1,8 +1,8 @@
 ---
-name: Surf embedded browser
+name: Epiphany embedded browser
 version: 0.1.0
 slug: embdbrowser
-description: Surf embedded browser
+description: Epiphany embedded browser
 url: https://github.com/bigmoby/addon-embedded-browser/tree/main/embedded_browser
 arch:
   - amd64
