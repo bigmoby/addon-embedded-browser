@@ -1,4 +1,4 @@
-# Home Assistant Bigmoby Add-on: Epiphany embedded browser
+# Home Assistant Bigmoby Application: Epiphany embedded browser
 
 [![GitHub Release][releases-shield]][releases]
 ![Project Stage][project-stage-shield]
