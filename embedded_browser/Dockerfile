@@ -18,6 +18,7 @@ RUN \
         openbox \
         tigervnc-common \
         tigervnc-standalone-server \
+        websockify \
         wmctrl \
         xdotool \
         xfonts-base \
