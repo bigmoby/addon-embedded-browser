@@ -58,6 +58,10 @@ tigervncserver \
 
 bashio::net.wait_for 5900
 
+# Stream VNC logs to container output so we can track authentication failures
+tail -F /root/.vnc/*.log &
+
+
 bashio::log.info "Starting Openbox window manager..."
 openbox &
 sleep 2

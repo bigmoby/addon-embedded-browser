@@ -1,6 +1,6 @@
 ---
 name: Epiphany embedded browser
-version: 0.1.2
+version: 0.1.3
 slug: embdbrowser
 description: Epiphany embedded browser
 url: https://github.com/bigmoby/addon-embedded-browser/tree/main/embedded_browser
@@ -21,7 +21,7 @@ ingress: true
 ingress_entry: ingress.html
 ingress_port: 8099
 kernel_modules: false
-#image: "bigmoby/{arch}-addon-embedded-browser"
+image: "bigmoby/{arch}-addon-embedded-browser"
 options:
   start_url: "http://192.168.1.1"
   vnc_password: ""
