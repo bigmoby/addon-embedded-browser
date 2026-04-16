@@ -1,4 +1,4 @@
-# Home Assistant Bigmoby Add-on: Epiphany embedded browser
+# Home Assistant Bigmoby Application: Epiphany embedded browser
 
 > **Note:** Direct VNC access (port 5900) is not password-protected by default. Set a `vnc_password` in the add-on configuration to enable VNC authentication.
 
