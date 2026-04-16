@@ -16,14 +16,16 @@ RUN \
         netcat-openbsd \
         nginx \
         openbox \
+        python3 \
+        python3-pip \
         tigervnc-common \
         tigervnc-standalone-server \
-        websockify \
         wmctrl \
         xdotool \
         xfonts-base \
         xfonts-scalable \
         tigervnc-tools \
+    && pip3 install --break-system-packages websockify \
     && rm -rf /var/lib/apt/lists/* \
     && curl -fsSL https://github.com/novnc/noVNC/archive/refs/tags/v1.6.0.tar.gz \
        | tar -xz -C /opt \
