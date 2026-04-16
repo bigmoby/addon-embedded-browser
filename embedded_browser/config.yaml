@@ -9,7 +9,7 @@ arch:
   - aarch64
 apparmor: false
 host_network: false
-stage: experimental
+stage: stable
 init: false
 hassio_api: true
 privileged:

@@ -1,9 +1,9 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start ozw-admin
+# Start websockify — WebSocket bridge between noVNC and TigerVNC
 # ==============================================================================
 
-# Wait until ozwadmin is up and running
+# Wait until VNC server is up and listening on port 5900
 bashio::log.info "Websockify waiting for VNC to start"
 bashio::net.wait_for 5900
 

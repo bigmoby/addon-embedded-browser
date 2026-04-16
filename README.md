@@ -11,7 +11,7 @@ Epiphany embedded browser.
 
 ## About
 
-[WARNING] Please DO NOT use this add-on unless you really KNOW what you are doing! It is in a very early stage of development. [WARNING]
+> **Note:** VNC access is not password-protected. Make sure this add-on is not exposed to untrusted networks.
 
 
 ## Local development — known issues
@@ -48,7 +48,7 @@ Fabio Mauro
 
 ## Authors & contributors
 
-Fabio Mauro Bigmoby
+Fabio Mauro
 
 For a full list of all authors and contributors,
 check [the contributor's page][contributors].
@@ -57,7 +57,7 @@ check [the contributor's page][contributors].
 
 MIT License
 
-Copyright (c) 2023-2024 Fabio Mauro
+Copyright (c) 2023-2026 Fabio Mauro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -11,21 +11,14 @@ RUN \
     && apt-get install -y --no-install-recommends \
         curl \
         dbus-x11 \
-        iproute2 \
-        iputils-ping \
-        kmod \
-        libcap2-bin \
-        lsof \
         epiphany-browser \
+        iproute2 \
         netcat-openbsd \
         nginx \
         novnc \
         openbox \
-        sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
-        udev \
-        wget \
         wmctrl \
         xdotool \
         xfonts-base \
