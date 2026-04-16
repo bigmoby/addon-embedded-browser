@@ -15,7 +15,6 @@ RUN \
         iproute2 \
         netcat-openbsd \
         nginx \
-        novnc \
         openbox \
         tigervnc-common \
         tigervnc-standalone-server \
@@ -24,7 +23,11 @@ RUN \
         xfonts-base \
         xfonts-scalable \
         tigervnc-tools \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL https://github.com/novnc/noVNC/archive/refs/tags/v1.6.0.tar.gz \
+       | tar -xz -C /opt \
+    && ln -s /opt/noVNC-1.6.0 /opt/novnc \
+    && ln -s /opt/novnc/vnc.html /opt/novnc/index.html
 
 # Copy root filesystem
 COPY rootfs /
