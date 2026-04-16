@@ -4,21 +4,15 @@
 # ==============================================================================
 TMP_FOLDER=$(mktemp -d)
 
-VNC_PORT="$(bashio::addon.port 5900)"
 START_URL="$(bashio::config 'start_url')"
+VNC_PASSWORD="$(bashio::config 'vnc_password' '')"
 
 # Fix tigervnc for 64-bit ARM (aarch64)
 if [[ "$(bashio::info.arch)" == "aarch64" ]]; then
     export LD_PRELOAD=/lib/aarch64-linux-gnu/libgcc_s.so.1
 fi
 
-# Expose VNC port only if explicitly configured
-if bashio::var.has_value "${VNC_PORT}"; then
-    bashio::log.warning "Your direct VNC access is not protected!"
-    LOCAL_ONLY=no
-else
-    LOCAL_ONLY=yes
-fi
+LOCAL_ONLY="yes"
 
 export XDG_RUNTIME_DIR="${TMP_FOLDER}"
 export DISPLAY=":0"
@@ -40,14 +34,25 @@ application/xhtml+xml=${EPIPHANY_DESKTOP}
 EOF
 cp /root/.config/mimeapps.list /root/.local/share/applications/mimeapps.list
 
+# Configure VNC security based on whether a password is set
+if bashio::var.has_value "${VNC_PASSWORD}"; then
+    bashio::log.info "VNC password is set — enabling VncAuth"
+    mkdir -p /root/.vnc
+    printf "%s\n" "${VNC_PASSWORD}" | vncpasswd -f > /root/.vnc/passwd
+    chmod 600 /root/.vnc/passwd
+    VNC_SECURITY_ARGS=("-SecurityTypes" "VncAuth" "-PasswordFile" "/root/.vnc/passwd")
+else
+    bashio::log.warning "No VNC password set — VNC access is not password-protected!"
+    VNC_SECURITY_ARGS=("-SecurityTypes" "None" "--I-KNOW-THIS-IS-INSECURE")
+fi
+
 bashio::log.info "Starting VNC server (local=${LOCAL_ONLY})..."
 tigervncserver \
     -name "Home Assistant - Epiphany" \
     -geometry 1920x1080 \
     -depth 24 \
     -localhost "${LOCAL_ONLY}" \
-    -SecurityTypes None \
-    --I-KNOW-THIS-IS-INSECURE \
+    "${VNC_SECURITY_ARGS[@]}" \
     "${DISPLAY}" \
     &>/dev/null
 

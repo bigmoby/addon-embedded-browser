@@ -23,6 +23,7 @@ RUN \
         xdotool \
         xfonts-base \
         xfonts-scalable \
+        tigervnc-tools \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy root filesystem

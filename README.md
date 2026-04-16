@@ -11,7 +11,7 @@ Epiphany embedded browser.
 
 ## About
 
-> **Note:** VNC access is not password-protected. Make sure this add-on is not exposed to untrusted networks.
+> **Note:** Direct VNC access (port 5900) is not password-protected by default. Set a `vnc_password` in the add-on configuration to enable VNC authentication.
 
 
 ## Local development — known issues
